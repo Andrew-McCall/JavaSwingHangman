@@ -29,14 +29,20 @@ public class GameLogic {
 		lives--;
 		
 		if (guess.length() == 1) { // One Letter
-
+			
+			boolean correct = false;
+			
 			char guessChar = guess.charAt(0);
 			char[] clueSplit = clue.toCharArray();
 			for (int i = 0; i < clue.length(); i++) {
 				if (guessChar == word.charAt(i)) {
 					clueSplit[i] = guessChar;
+					correct = true;
 				}
 			}
+			
+			if (correct) lives++;
+			
 			clue = String.valueOf(clueSplit);
 			
 			previousLetters.add(guess);

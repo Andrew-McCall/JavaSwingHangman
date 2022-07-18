@@ -2,9 +2,14 @@ package qa.example.hangman;
 
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -32,7 +37,7 @@ public class Hangman implements ActionListener {
 		
 		
 		
-		JPanel game = new JPanel(new GridLayout(5,1,20,10));
+		JPanel game = new JPanel(new GridLayout(5,1,10,10));
 		game.setBorder(new EmptyBorder(20, 20, 20, 20));
 		window.add(game);
 		
@@ -78,25 +83,53 @@ public class Hangman implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		
+		/// On submit
 		String guess = guessInput.getText().replaceAll("[^a-zA-Z]", "");
 		guessInput.setText("");
+		
+		if (guess.length() == 0) return;
+		
 		if (logic.makeGuess(guess)) {
+			
 			wordClue.setText("You Won! ("+logic.getWord()+")");
 			guessSubmit.setEnabled(false);
 			guessInput.setEnabled(false);
+			
+			try {
+				BufferedImage imageFile = ImageIO.read(new File("./src/qa/example/hangman/images/Win.png"));
+				image.setIcon(new ImageIcon(imageFile.getScaledInstance(80, 80, Image.SCALE_DEFAULT)));
+			}catch (Exception err){
+				err.printStackTrace();
+			}
+			
+			
 		}else if (logic.getLives() == 0){
+			
 			wordClue.setText("You Lose! ("+logic.getWord()+")");
 			guessSubmit.setEnabled(false);
 			guessInput.setEnabled(false);
+			image.setIcon(getLivesImage());	
+			
 		}else {
+			
 			previousGuess.setText(logic.getPreviousLetters().toString());
 			wordClue.setText(logic.getClue());
 			image.setIcon(getLivesImage());	
+			
 		}
+		
+		
 	
 	}
 	
 	private ImageIcon getLivesImage() {
+		try {
+			BufferedImage imageFile = ImageIO.read(new File("./src/qa/example/hangman/images/"+logic.getLives()+".png"));
+			return new ImageIcon(imageFile.getScaledInstance(80, 80, Image.SCALE_DEFAULT));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		return null;
 	}
 
