@@ -12,6 +12,8 @@ public class GameLogic {
 	
 	public GameLogic() {
 		
+		lives = 10;
+		
 		previousLetters = new ArrayList<>();
 		
 		word = "test";
@@ -24,6 +26,7 @@ public class GameLogic {
 	public boolean makeGuess(String guess) {
 		
 		guess.toLowerCase();
+		lives--;
 		
 		if (guess.length() == 1) { // One Letter
 

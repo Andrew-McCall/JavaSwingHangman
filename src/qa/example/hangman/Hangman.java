@@ -78,11 +78,22 @@ public class Hangman implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		String guess = guessInput.getText().replaceAll("^[a-zA-Z]", "");
+		String guess = guessInput.getText().replaceAll("[^a-zA-Z]", "");
 		guessInput.setText("");
-		System.out.println(guess);
-		
-		
+		if (logic.makeGuess(guess)) {
+			wordClue.setText("You Won! ("+logic.getWord()+")");
+			guessSubmit.setEnabled(false);
+			guessInput.setEnabled(false);
+		}else if (logic.getLives() == 0){
+			wordClue.setText("You Lose! ("+logic.getWord()+")");
+			guessSubmit.setEnabled(false);
+			guessInput.setEnabled(false);
+		}else {
+			previousGuess.setText(logic.getPreviousLetters().toString());
+			wordClue.setText(logic.getClue());
+			image.setIcon(getLivesImage());	
+		}
+	
 	}
 	
 	private ImageIcon getLivesImage() {
