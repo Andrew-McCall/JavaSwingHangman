@@ -5,7 +5,7 @@ package qa.example.hangman;
  * 
  * 	 https://github.com/Andrew-McCall/JavaSwingHangman
  * 
- * @version 0.1
+ * @version 1.0
  */
 
 public class Runner {

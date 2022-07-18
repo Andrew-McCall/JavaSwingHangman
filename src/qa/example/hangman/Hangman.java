@@ -97,7 +97,7 @@ public class Hangman implements ActionListener {
 			guessInput.setEnabled(false);
 			
 			try {
-				BufferedImage imageFile = ImageIO.read(new File("./src/qa/example/hangman/images/Win.png"));
+				BufferedImage imageFile = ImageIO.read(new File("./src/qa/example/hangman/resources/Win.png"));
 				image.setIcon(new ImageIcon(imageFile.getScaledInstance(80, 80, Image.SCALE_DEFAULT)));
 			}catch (Exception err){
 				err.printStackTrace();
@@ -125,7 +125,7 @@ public class Hangman implements ActionListener {
 	
 	private ImageIcon getLivesImage() {
 		try {
-			BufferedImage imageFile = ImageIO.read(new File("./src/qa/example/hangman/images/"+logic.getLives()+".png"));
+			BufferedImage imageFile = ImageIO.read(new File("./src/qa/example/hangman/resources/"+logic.getLives()+".png"));
 			return new ImageIcon(imageFile.getScaledInstance(80, 80, Image.SCALE_DEFAULT));
 		} catch (IOException e) {
 			e.printStackTrace();

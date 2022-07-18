@@ -1,7 +1,10 @@
 package qa.example.hangman;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class GameLogic {
 
@@ -11,14 +14,13 @@ public class GameLogic {
 	private String clue;
 	
 	public GameLogic() {
+
 		
 		lives = 10;
-		
 		previousLetters = new ArrayList<>();
-		
-		word = "test";
-		
+		word = newWord();
 		clue = "-".repeat(word.length());
+		
 		
 	}
 
@@ -54,6 +56,26 @@ public class GameLogic {
 		
 	}
 	
+	public String newWord() {
+		try{
+		    BufferedReader reader = new BufferedReader(new FileReader("./src/qa/example/hangman/resources/dictionary.txt"));
+		    String line = reader.readLine();
+		    List<String> words = new ArrayList<String>();
+		    while(line != null) {
+		        String[] wordsLine = line.split(" ");
+		        for(String word : wordsLine) {
+		            words.add(word);
+		        }
+		        line = reader.readLine();
+		    }
+		    reader.close();
+		    Random rand = new Random(System.currentTimeMillis());
+		    return words.get(rand.nextInt(words.size()));
+		} catch (Exception e) {
+		    e.printStackTrace();
+		}
+		return "error";
+	}
 	
 	/// Setters and Getters
 	public String getWord() {
