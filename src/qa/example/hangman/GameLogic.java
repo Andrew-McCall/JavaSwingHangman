@@ -47,7 +47,7 @@ public class GameLogic {
 			
 			clue = String.valueOf(clueSplit);
 			
-			previousLetters.add(guess);
+			letterAdd(guess);
 			
 			return word.equals(clue);
 		} else { // Word
@@ -56,7 +56,13 @@ public class GameLogic {
 		
 	}
 	
-	public String newWord() {
+	private void letterAdd(String letter) {
+		if (!previousLetters.contains(letter)) {
+			previousLetters.add(letter);
+		}
+	}
+	
+	private String newWord() {
 		try{
 		    BufferedReader reader = new BufferedReader(new FileReader("./src/qa/example/hangman/resources/dictionary.txt"));
 		    String line = reader.readLine();

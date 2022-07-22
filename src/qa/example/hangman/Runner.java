@@ -12,7 +12,7 @@ public class Runner {
 
 	public static void main(String[] args) {
 
-		new Hangman();
+		new HangmanGUIOuput();
 
 	}
 
